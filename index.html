@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CO Corregido</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#3498db">
+  <link rel="icon" href="icono-192.png">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f8f9fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 360px;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      font-size: 1.5em;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: 600;
+      color: #34495e;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    button:hover { background: #2980b9; }
+    .resultado {
+      margin-top: 20px;
+      padding: 14px;
+      background: #e3f2fd;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: #0d47a1;
+      display: none;
+    }
+    .error {
+      color: #e53935;
+      font-size: 14px;
+      margin-top: 8px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>CO Corregido</h1>
+
+    <label for="co">CO medido (ppm):</label>
+    <input type="number" id="co" placeholder="Ej. 100" step="any">
+
+    <label for="o2">Oxígeno medio (% O₂):</label>
+    <input type="number" id="o2" placeholder="Ej. 15" step="any">
+    <div class="error" id="error"></div>
+
+    <button onclick="calcular()">Calcular</button>
+    <div class="resultado" id="resultado"></div>
+  </div>
+
+  <script>
+    function calcular() {
+      const co = parseFloat(document.getElementById('co').value);
+      const o2 = parseFloat(document.getElementById('o2').value);
+      const error = document.getElementById('error');
+      const res = document.getElementById('resultado');
+
+      error.style.display = 'none';
+      res.style.display = 'none';
+
+      if (isNaN(co) || isNaN(o2)) {
+        error.textContent = 'Ingrese valores numéricos.';
+        error.style.display = 'block';
+        return;
+      }
+      if (o2 >= 21 || o2 < 0 || co < 0) {
+        error.textContent = 'O₂ debe estar entre 0 y 21 (sin incluir 21).';
+        error.style.display = 'block';
+        return;
+      }
+
+      const corregido = (21 * co) / (21 - o2);
+      res.textContent = `CO corregido: ${corregido.toFixed(2)} ppm`;
+      res.style.display = 'block';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "name": "Calculadora CO Corregido",
+  "short_name": "CO Corregido",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f9fa",
+  "theme_color": "#3498db",
+  "description": "Calcula el CO corregido a partir de CO medido y O₂ medio.",
+  "icons": [
+    {
+      "src": "icono-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "lang": "es"
+}
